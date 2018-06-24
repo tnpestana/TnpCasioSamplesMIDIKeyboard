@@ -24,6 +24,30 @@ TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
                        )
 #endif
 {
+	formatManager.registerBasicFormats();
+
+	synth.clearVoices();
+	// Add some voices to our synth, to play the sounds..
+	for (auto i = 0; i < 4; ++i)
+	{
+		synth.addVoice(new SamplerVoice());    // and these ones play the sampled sounds
+	}
+
+	File* file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/9.wav");
+	std::unique_ptr<AudioFormatReader> audioReader = (std::unique_ptr<AudioFormatReader>) formatManager.createReaderFor(*file);
+
+	BigInteger allNotes;
+	allNotes.setRange(0, 128, true);
+
+	synth.clearSounds();
+	synth.addSound(new SamplerSound("demo sound",
+		*audioReader,
+		allNotes,
+		74,   // root midi note
+		0.1,  // attack time
+		0.1,  // release time
+		10.0  // maximum sample length
+	));
 }
 
 TnpCasioMt40AudioProcessor::~TnpCasioMt40AudioProcessor()
@@ -95,8 +119,8 @@ void TnpCasioMt40AudioProcessor::changeProgramName (int index, const String& new
 //==============================================================================
 void TnpCasioMt40AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+	midiCollector.reset(sampleRate);
+	synth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void TnpCasioMt40AudioProcessor::releaseResources()
@@ -131,31 +155,15 @@ bool TnpCasioMt40AudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
 
 void TnpCasioMt40AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
+	// the synth always adds its output to the audio buffer, so we have to clear it
+	// first..
+	buffer.clear();
 
-    // In case we have more outputs than inputs, this code clears any output
-    // channels that didn't contain input data, (because these aren't
-    // guaranteed to be empty - they may contain garbage).
-    // This is here to avoid people getting screaming feedback
-    // when they first compile a plugin, but obviously you don't need to keep
-    // this code if your algorithm always overwrites all the output channels.
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+	// fill a midi buffer with incoming messages from the midi input.
+	midiCollector.removeNextBlockOfMessages(midiMessages, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
-    }
+	// and now get the synth to process the midi events and generate its output.
+	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
