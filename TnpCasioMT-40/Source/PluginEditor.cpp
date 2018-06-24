@@ -17,7 +17,17 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (400, 200);
+
+	addAndMakeVisible(sampleToneComboBox);
+	for (int i = 1; i < 25; i++)
+	{
+		sampleToneComboBox.addItem((String)i, i);
+	}
+
+	sampleToneAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "sampleTone", sampleToneComboBox);
+
+	sampleToneComboBox.addListener(this);
 }
 
 TnpCasioMt40AudioProcessorEditor::~TnpCasioMt40AudioProcessorEditor()
@@ -29,14 +39,15 @@ void TnpCasioMt40AudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
-    g.setColour (Colours::white);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
 }
 
 void TnpCasioMt40AudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+	Rectangle<int> area(getLocalBounds());
+	sampleToneComboBox.setBounds(area.reduced(90));
+}
+
+void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
+{
+	processor.setVoice((int)*processor.treeState.getRawParameterValue("sampleTone"));
 }

@@ -14,26 +14,113 @@
 //==============================================================================
 TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
-                       )
+	: AudioProcessor(BusesProperties()
+#if ! JucePlugin_IsMidiEffect
+#if ! JucePlugin_IsSynth
+		.withInput("Input", AudioChannelSet::stereo(), true)
+#endif
+		.withOutput("Output", AudioChannelSet::stereo(), true)
+#endif
+	),
+	treeState(*this, nullptr)
 #endif
 {
 	formatManager.registerBasicFormats();
 
+	NormalisableRange<float> sampleToneRange(0, 23);
+	treeState.createAndAddParameter("sampleTone", "SampleTone", String(), sampleToneRange, 10, nullptr, nullptr);
+
+	treeState.state = ValueTree(Identifier("CasioState"));
+
+	setVoice(10);
+}
+
+void TnpCasioMt40AudioProcessor::setVoice(int value)
+{
 	synth.clearVoices();
 	// Add some voices to our synth, to play the sounds..
 	for (auto i = 0; i < 4; ++i)
 	{
-		synth.addVoice(new SamplerVoice());    // and these ones play the sampled sounds
+		synth.addVoice(new SamplerVoice());
 	}
 
-	File* file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/9.wav");
+	File* file = nullptr;
+	switch (value)
+	{
+		case 0:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/1.wav");
+			break;
+		case 1:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/2.wav");
+			break;
+		case 2:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/3.wav");
+			break;
+		case 3:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/4.wav");
+			break;
+		case 4:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/5.wav");
+			break;
+		case 5:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/6.wav");
+			break;
+		case 6:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/7.wav");
+			break;
+		case 7:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/8.wav");
+			break;
+		case 8:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/9.wav");
+			break;
+		case 9:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/10.wav");
+			break;
+		case 10:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/11.wav");
+			break;
+		case 11:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/12.wav");
+			break;
+		case 12:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/13.wav");
+			break;
+		case 13:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/14.wav");
+			break;
+		case 14:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/15.wav");
+			break;
+		case 15:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/16.wav");
+			break;
+		case 16:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/17.wav");
+			break;
+		case 17:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/18.wav");
+			break;
+		case 18:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/19.wav");
+			break;
+		case 19:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/20.wav");
+			break;
+		case 20:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/21.wav");
+			break;
+		case 21:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/22.wav");
+			break; 
+		case 22:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/23.wav");
+			break;
+		case 23:
+			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/24.wav");
+			break;
+	}
+
 	std::unique_ptr<AudioFormatReader> audioReader = (std::unique_ptr<AudioFormatReader>) formatManager.createReaderFor(*file);
 
 	BigInteger allNotes;

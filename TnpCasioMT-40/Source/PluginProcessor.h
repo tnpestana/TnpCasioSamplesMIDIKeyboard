@@ -22,6 +22,9 @@ public:
     TnpCasioMt40AudioProcessor();
     ~TnpCasioMt40AudioProcessor();
 
+	//==============================================================================
+	void setVoice(int);
+
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
@@ -54,6 +57,8 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+
+	AudioProcessorValueTreeState treeState;
 
 private:
 	Synthesiser synth;
