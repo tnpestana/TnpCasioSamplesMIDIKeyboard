@@ -25,103 +25,105 @@ TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
 	treeState(*this, nullptr)
 #endif
 {
-	formatManager.registerBasicFormats();
-
-	NormalisableRange<float> sampleToneRange(0, 23);
-	treeState.createAndAddParameter("sampleTone", "SampleTone", String(), sampleToneRange, 10, nullptr, nullptr);
+	NormalisableRange<float> sampleToneRange(0, 23, 1);
+	treeState.createAndAddParameter("sampleTone", "SampleTone", String(), sampleToneRange, 0, nullptr, nullptr);
 
 	treeState.state = ValueTree(Identifier("CasioState"));
 
-	setVoice(10);
+	setVoice();
 }
 
-void TnpCasioMt40AudioProcessor::setVoice(int value)
+TnpCasioMt40AudioProcessor::~TnpCasioMt40AudioProcessor()
+{
+}
+
+
+void TnpCasioMt40AudioProcessor::setVoice()
 {
 	synth.clearVoices();
 	// Add some voices to our synth, to play the sounds..
-	for (auto i = 0; i < 4; ++i)
+	for (auto i = 0; i < 5; ++i)
 	{
 		synth.addVoice(new SamplerVoice());
 	}
 
-	File* file = nullptr;
-	switch (value)
+	WavAudioFormat wavFormat;
+	ScopedPointer<AudioFormatReader> audioReader;
+	switch ((int)*treeState.getRawParameterValue("sampleTone"))
 	{
-		case 0:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/1.wav");
-			break;
-		case 1:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/2.wav");
-			break;
-		case 2:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/3.wav");
-			break;
-		case 3:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/4.wav");
-			break;
-		case 4:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/5.wav");
-			break;
-		case 5:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/6.wav");
-			break;
-		case 6:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/7.wav");
-			break;
-		case 7:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/8.wav");
-			break;
-		case 8:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/9.wav");
-			break;
-		case 9:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/10.wav");
-			break;
-		case 10:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/11.wav");
-			break;
-		case 11:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/12.wav");
-			break;
-		case 12:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/13.wav");
-			break;
-		case 13:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/14.wav");
-			break;
-		case 14:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/15.wav");
-			break;
-		case 15:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/16.wav");
-			break;
-		case 16:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/17.wav");
-			break;
-		case 17:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/18.wav");
-			break;
-		case 18:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/19.wav");
-			break;
-		case 19:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/20.wav");
-			break;
-		case 20:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/21.wav");
-			break;
-		case 21:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/22.wav");
-			break; 
-		case 22:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/23.wav");
-			break;
-		case 23:
-			file = new File("C:/Users/tnpes/Documents/Code/JUCE/Samples/CasioMT-40/24.wav");
-			break;
+	case 0:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_1_wav, BinaryData::_1_wavSize, false), true);
+		break;
+	case 1:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_2_wav, BinaryData::_2_wavSize, false), true);
+		break;
+	case 2:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_3_wav, BinaryData::_3_wavSize, false), true);
+		break;
+	case 3:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_4_wav, BinaryData::_4_wavSize, false), true);
+		break;
+	case 4:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_5_wav, BinaryData::_5_wavSize, false), true);
+		break;
+	case 5:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_6_wav, BinaryData::_6_wavSize, false), true);
+		break;
+	case 6:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_7_wav, BinaryData::_7_wavSize, false), true);
+		break;
+	case 7:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_8_wav, BinaryData::_8_wavSize, false), true);
+		break;
+	case 8:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_9_wav, BinaryData::_9_wavSize, false), true);
+		break;
+	case 9:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_10_wav, BinaryData::_10_wavSize, false), true);
+		break;
+	case 10:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_11_wav, BinaryData::_11_wavSize, false), true);
+		break;
+	case 11:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_12_wav, BinaryData::_12_wavSize, false), true);
+		break;
+	case 12:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_13_wav, BinaryData::_13_wavSize, false), true);
+		break;
+	case 13:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_14_wav, BinaryData::_14_wavSize, false), true);
+		break;
+	case 14:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_15_wav, BinaryData::_15_wavSize, false), true);
+		break;
+	case 15:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_16_wav, BinaryData::_16_wavSize, false), true);
+		break;
+	case 16:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_17_wav, BinaryData::_17_wavSize, false), true);
+		break;
+	case 17:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_18_wav, BinaryData::_18_wavSize, false), true);
+		break;
+	case 18:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_19_wav, BinaryData::_19_wavSize, false), true);
+		break;
+	case 19:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_20_wav, BinaryData::_20_wavSize, false), true);
+		break;
+	case 20:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_21_wav, BinaryData::_21_wavSize, false), true);
+		break;
+	case 21:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_22_wav, BinaryData::_22_wavSize, false), true);
+		break;
+	case 22:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_23_wav, BinaryData::_23_wavSize, false), true);
+		break;
+	case 23:
+		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_24_wav, BinaryData::_24_wavSize, false), true);
+		break;
 	}
-
-	std::unique_ptr<AudioFormatReader> audioReader = (std::unique_ptr<AudioFormatReader>) formatManager.createReaderFor(*file);
 
 	BigInteger allNotes;
 	allNotes.setRange(0, 128, true);
@@ -131,14 +133,11 @@ void TnpCasioMt40AudioProcessor::setVoice(int value)
 		*audioReader,
 		allNotes,
 		74,   // root midi note
-		0.1,  // attack time
+		0.01,  // attack time
 		0.1,  // release time
 		10.0  // maximum sample length
 	));
-}
 
-TnpCasioMt40AudioProcessor::~TnpCasioMt40AudioProcessor()
-{
 }
 
 //==============================================================================
@@ -246,10 +245,9 @@ void TnpCasioMt40AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	// first..
 	buffer.clear();
 
-	// fill a midi buffer with incoming messages from the midi input.
 	midiCollector.removeNextBlockOfMessages(midiMessages, buffer.getNumSamples());
 
-	// and now get the synth to process the midi events and generate its output.
+	// get the synth to process the midi events and generate its output.
 	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 

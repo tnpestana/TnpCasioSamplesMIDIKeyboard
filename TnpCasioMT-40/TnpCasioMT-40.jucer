@@ -3,6 +3,32 @@
 <JUCERPROJECT id="uE9yKS" name="TnpCasioMT-40" projectType="audioplug" jucerVersion="5.3.2"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="uCgNwV" name="TnpCasioMT-40">
+    <GROUP id="{00DBDADC-9229-C9EF-F580-F138D66F9517}" name="Samples">
+      <FILE id="G8dz8O" name="1.wav" compile="0" resource="1" file="Samples/1.wav"/>
+      <FILE id="VLNjH6" name="2.wav" compile="0" resource="1" file="Samples/2.wav"/>
+      <FILE id="nGYxju" name="3.wav" compile="0" resource="1" file="Samples/3.wav"/>
+      <FILE id="xj2Ye4" name="4.wav" compile="0" resource="1" file="Samples/4.wav"/>
+      <FILE id="f4Pzsa" name="5.wav" compile="0" resource="1" file="Samples/5.wav"/>
+      <FILE id="jGnXXY" name="6.wav" compile="0" resource="1" file="Samples/6.wav"/>
+      <FILE id="fSy6fD" name="7.wav" compile="0" resource="1" file="Samples/7.wav"/>
+      <FILE id="W3BtcY" name="8.wav" compile="0" resource="1" file="Samples/8.wav"/>
+      <FILE id="hMkaPf" name="9.wav" compile="0" resource="1" file="Samples/9.wav"/>
+      <FILE id="m0zNLv" name="10.wav" compile="0" resource="1" file="Samples/10.wav"/>
+      <FILE id="RO0AIr" name="11.wav" compile="0" resource="1" file="Samples/11.wav"/>
+      <FILE id="bw13VJ" name="12.wav" compile="0" resource="1" file="Samples/12.wav"/>
+      <FILE id="jczeFh" name="13.wav" compile="0" resource="1" file="Samples/13.wav"/>
+      <FILE id="q3Jk8A" name="14.wav" compile="0" resource="1" file="Samples/14.wav"/>
+      <FILE id="U7syJ6" name="15.wav" compile="0" resource="1" file="Samples/15.wav"/>
+      <FILE id="tAVF7y" name="16.wav" compile="0" resource="1" file="Samples/16.wav"/>
+      <FILE id="YForN7" name="17.wav" compile="0" resource="1" file="Samples/17.wav"/>
+      <FILE id="G555EK" name="18.wav" compile="0" resource="1" file="Samples/18.wav"/>
+      <FILE id="h0udv4" name="19.wav" compile="0" resource="1" file="Samples/19.wav"/>
+      <FILE id="rW50xI" name="20.wav" compile="0" resource="1" file="Samples/20.wav"/>
+      <FILE id="VBj8Ss" name="21.wav" compile="0" resource="1" file="Samples/21.wav"/>
+      <FILE id="OGkAhI" name="22.wav" compile="0" resource="1" file="Samples/22.wav"/>
+      <FILE id="T9Qlwv" name="23.wav" compile="0" resource="1" file="Samples/23.wav"/>
+      <FILE id="STTBm2" name="24.wav" compile="0" resource="1" file="Samples/24.wav"/>
+    </GROUP>
     <GROUP id="{D17291E3-70CC-CCBC-11C6-9ED097C4B809}" name="Source">
       <FILE id="ERrDhU" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

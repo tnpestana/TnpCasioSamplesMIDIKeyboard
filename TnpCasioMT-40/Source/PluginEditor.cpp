@@ -49,5 +49,5 @@ void TnpCasioMt40AudioProcessorEditor::resized()
 
 void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
 {
-	processor.setVoice((int)*processor.treeState.getRawParameterValue("sampleTone"));
+	processor.setVoice();
 }

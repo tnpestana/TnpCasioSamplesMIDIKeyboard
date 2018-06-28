@@ -23,7 +23,7 @@ public:
     ~TnpCasioMt40AudioProcessor();
 
 	//==============================================================================
-	void setVoice(int);
+	void setVoice();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -63,8 +63,6 @@ public:
 private:
 	Synthesiser synth;
 	MidiMessageCollector midiCollector;
-
-	AudioFormatManager formatManager;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpCasioMt40AudioProcessor)
