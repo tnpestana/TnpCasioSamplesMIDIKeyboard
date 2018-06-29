@@ -17,17 +17,12 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 200);
+    setSize (200, 100);
 
 	addAndMakeVisible(sampleToneComboBox);
 	for (int i = 1; i < 25; i++)
-	{
 		sampleToneComboBox.addItem((String)i, i);
-	}
-
 	sampleToneAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "sampleTone", sampleToneComboBox);
-
-	sampleToneComboBox.addListener(this);
 }
 
 TnpCasioMt40AudioProcessorEditor::~TnpCasioMt40AudioProcessorEditor()
@@ -44,10 +39,5 @@ void TnpCasioMt40AudioProcessorEditor::paint (Graphics& g)
 void TnpCasioMt40AudioProcessorEditor::resized()
 {
 	Rectangle<int> area(getLocalBounds());
-	sampleToneComboBox.setBounds(area.reduced(90));
-}
-
-void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
-{
-	processor.setVoice();
+	sampleToneComboBox.setBounds(area.reduced(40));
 }

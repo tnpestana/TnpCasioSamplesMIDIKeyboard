@@ -49,7 +49,8 @@ void TnpCasioMt40AudioProcessor::setVoice()
 
 	WavAudioFormat wavFormat;
 	ScopedPointer<AudioFormatReader> audioReader;
-	switch ((int)*treeState.getRawParameterValue("sampleTone"))
+	localSampleTone = (int)*treeState.getRawParameterValue("sampleTone");
+	switch (localSampleTone)
 	{
 	case 0:
 		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_1_wav, BinaryData::_1_wavSize, false), true);
@@ -246,6 +247,9 @@ void TnpCasioMt40AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	buffer.clear();
 
 	midiCollector.removeNextBlockOfMessages(midiMessages, buffer.getNumSamples());
+
+	if (localSampleTone != (int)*treeState.getRawParameterValue("sampleTone"))
+		setVoice();
 
 	// get the synth to process the midi events and generate its output.
 	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());

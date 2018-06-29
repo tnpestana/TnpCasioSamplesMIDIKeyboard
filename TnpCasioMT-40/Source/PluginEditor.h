@@ -16,8 +16,7 @@
 //==============================================================================
 /**
 */
-class TnpCasioMt40AudioProcessorEditor  : public AudioProcessorEditor,
-	public ComboBox::Listener
+class TnpCasioMt40AudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
     TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&);
@@ -37,7 +36,4 @@ private:
 	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> sampleToneAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpCasioMt40AudioProcessorEditor)
-
-		// Inherited via Listener
-		virtual void comboBoxChanged(ComboBox * comboBoxThatHasChanged) override;
 };
