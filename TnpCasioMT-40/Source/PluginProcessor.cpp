@@ -42,7 +42,8 @@ void TnpCasioMt40AudioProcessor::setVoice()
 {
 	synth.clearVoices();
 	// Add some voices to our synth, to play the sounds..
-	for (auto i = 0; i < 5; ++i)
+	// 10 voices to avoid destruction clicks when playing
+	for (auto i = 0; i < 10; ++i)
 	{
 		synth.addVoice(new SamplerVoice());
 	}
