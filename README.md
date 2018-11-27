@@ -1,10 +1,10 @@
 # Pesto's MIDI Casio MT-40
 
-Loaded recorded audio samples from an analog keyboard Casio MT-40 into a JUCE plug-in to be able to use it's preset sounds as a VST with MIDI compatibility. 
+Loaded recorded audio samples from an analog keyboard Casio MT-40 into a JUCE plug-in to be able to use it's preset sounds as a VST with MIDI compatibility. The audio samples were recorded by Henry and taken from [his blog](http://oldkeyboardsamples.tumblr.com).
 
 ## Building
 
-Both /Builds and /JuceLibraryCode folders are ignored but it is my understanding that if you have the Projucer tool installed and run the .jucer file those will be automatically generated. The audio samples were recorded by Henry and taken from [his blog](http://oldkeyboardsamples.tumblr.com).
+Both /Builds and /JuceLibraryCode folders are ignored but it is my understanding that if you have the Projucer tool installed and run the .jucer file those will be automatically generated. 
 
 ## Author
 
