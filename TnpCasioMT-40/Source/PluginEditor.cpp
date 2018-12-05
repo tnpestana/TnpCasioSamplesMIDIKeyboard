@@ -17,17 +17,38 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (200, 100);
+    setSize (200, 200);
 
-	addAndMakeVisible(sampleToneComboBox);
+	addAndMakeVisible(comboKeyboard);
+	addAndMakeVisible(comboTone);
+
+	// populate casioMT-40_tones list with numbers while we dont have sound names
 	for (int i = 1; i < 25; i++)
-		sampleToneComboBox.addItem((String)i, i);
-	sampleToneAttachment = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "sampleTone", sampleToneComboBox);
+		casioMT40_tones.add((String)i);
+
+	comboKeyboard.addItem("casio MT-40", 1);
+	comboKeyboard.addItem("casio SA-10", 2);
+
+	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "keyboard", comboKeyboard);
+	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "tone", comboTone);
+
+	manageComboBoxes();
+
+	comboKeyboard.addListener(this);
+	comboTone.addListener(this);
 }
 
 TnpCasioMt40AudioProcessorEditor::~TnpCasioMt40AudioProcessorEditor()
 {
 }
+
+StringArray TnpCasioMt40AudioProcessorEditor::casioMT40_tones{};
+
+StringArray TnpCasioMt40AudioProcessorEditor::casioSA10_tones{
+	"accordion", "basson", "cello", "piano", "flute",
+	"honkypiano", "metalguitar", "piano", "poplead",
+	"synthaccordion", "synthbrass", "synthlead"
+};
 
 //==============================================================================
 void TnpCasioMt40AudioProcessorEditor::paint (Graphics& g)
@@ -39,5 +60,29 @@ void TnpCasioMt40AudioProcessorEditor::paint (Graphics& g)
 void TnpCasioMt40AudioProcessorEditor::resized()
 {
 	Rectangle<int> area(getLocalBounds());
-	sampleToneComboBox.setBounds(area.reduced(40));
+	comboTone.setBounds(area.removeFromBottom(area.getHeight() / 2).reduced(40));
+	comboKeyboard.setBounds(area.reduced(40));
+}
+
+void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
+{
+	if(&comboKeyboard == comboBoxThatHasChanged)
+		manageComboBoxes();
+}
+
+void TnpCasioMt40AudioProcessorEditor::manageComboBoxes() 
+{
+	int keyboardParam = comboKeyboard.getSelectedId();//(int)*processor.treeState.getRawParameterValue("keyboard");
+	if (keyboardParam == 1)
+	{
+		comboTone.clear();
+		comboTone.addItemList(casioMT40_tones, 1);
+		comboTone.setSelectedItemIndex(0);
+	}
+	else if(keyboardParam == 2)
+	{
+		comboTone.clear();
+		comboTone.addItemList(casioSA10_tones, 1);
+		comboTone.setSelectedItemIndex(0);
+	}
 }

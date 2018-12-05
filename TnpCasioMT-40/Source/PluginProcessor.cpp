@@ -22,12 +22,15 @@ TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
 		.withOutput("Output", AudioChannelSet::stereo(), true)
 #endif
 	),
-	treeState(*this, nullptr)
+	treeState(*this, nullptr),
+	localKeyboard(0),
+	localTone(0)
 #endif
 {
-	NormalisableRange<float> sampleToneRange(0, 23, 1);
-	treeState.createAndAddParameter("sampleTone", "SampleTone", String(), sampleToneRange, 0, nullptr, nullptr);
-
+	NormalisableRange<float> keyboardRange(0, 1, 1);
+	treeState.createAndAddParameter("keyboard", "keyboard", String(), keyboardRange, 0, nullptr, nullptr);
+	NormalisableRange<float> toneRange(0, 23, 1);
+	treeState.createAndAddParameter("tone", "tone", String(), toneRange, 0, nullptr, nullptr);
 	treeState.state = ValueTree(Identifier("CasioState"));
 
 	setVoice();
@@ -41,90 +44,132 @@ TnpCasioMt40AudioProcessor::~TnpCasioMt40AudioProcessor()
 void TnpCasioMt40AudioProcessor::setVoice()
 {
 	synth.clearVoices();
-	// Add some voices to our synth, to play the sounds..
-	// 10 voices to avoid destruction clicks when playing
 	for (auto i = 0; i < 10; ++i)
 	{
 		synth.addVoice(new SamplerVoice());
 	}
-
 	WavAudioFormat wavFormat;
 	ScopedPointer<AudioFormatReader> audioReader;
-	localSampleTone = (int)*treeState.getRawParameterValue("sampleTone");
-	switch (localSampleTone)
+	localKeyboard = (int)*treeState.getRawParameterValue("keyboard");
+	localTone = (int)*treeState.getRawParameterValue("tone");
+	if (*treeState.getRawParameterValue("keyboard") == 0)
 	{
-	case 0:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_1_wav, BinaryData::_1_wavSize, false), true);
-		break;
-	case 1:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_2_wav, BinaryData::_2_wavSize, false), true);
-		break;
-	case 2:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_3_wav, BinaryData::_3_wavSize, false), true);
-		break;
-	case 3:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_4_wav, BinaryData::_4_wavSize, false), true);
-		break;
-	case 4:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_5_wav, BinaryData::_5_wavSize, false), true);
-		break;
-	case 5:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_6_wav, BinaryData::_6_wavSize, false), true);
-		break;
-	case 6:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_7_wav, BinaryData::_7_wavSize, false), true);
-		break;
-	case 7:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_8_wav, BinaryData::_8_wavSize, false), true);
-		break;
-	case 8:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_9_wav, BinaryData::_9_wavSize, false), true);
-		break;
-	case 9:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_10_wav, BinaryData::_10_wavSize, false), true);
-		break;
-	case 10:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_11_wav, BinaryData::_11_wavSize, false), true);
-		break;
-	case 11:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_12_wav, BinaryData::_12_wavSize, false), true);
-		break;
-	case 12:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_13_wav, BinaryData::_13_wavSize, false), true);
-		break;
-	case 13:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_14_wav, BinaryData::_14_wavSize, false), true);
-		break;
-	case 14:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_15_wav, BinaryData::_15_wavSize, false), true);
-		break;
-	case 15:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_16_wav, BinaryData::_16_wavSize, false), true);
-		break;
-	case 16:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_17_wav, BinaryData::_17_wavSize, false), true);
-		break;
-	case 17:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_18_wav, BinaryData::_18_wavSize, false), true);
-		break;
-	case 18:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_19_wav, BinaryData::_19_wavSize, false), true);
-		break;
-	case 19:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_20_wav, BinaryData::_20_wavSize, false), true);
-		break;
-	case 20:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_21_wav, BinaryData::_21_wavSize, false), true);
-		break;
-	case 21:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_22_wav, BinaryData::_22_wavSize, false), true);
-		break;
-	case 22:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_23_wav, BinaryData::_23_wavSize, false), true);
-		break;
-	case 23:
-		audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_24_wav, BinaryData::_24_wavSize, false), true);
-		break;
+		switch (localTone)
+		{
+		case 0:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_1_wav, BinaryData::_1_wavSize, false), true);
+			break;
+		case 1:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_2_wav, BinaryData::_2_wavSize, false), true);
+			break;
+		case 2:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_3_wav, BinaryData::_3_wavSize, false), true);
+			break;
+		case 3:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_4_wav, BinaryData::_4_wavSize, false), true);
+			break;
+		case 4:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_5_wav, BinaryData::_5_wavSize, false), true);
+			break;
+		case 5:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_6_wav, BinaryData::_6_wavSize, false), true);
+			break;
+		case 6:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_7_wav, BinaryData::_7_wavSize, false), true);
+			break;
+		case 7:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_8_wav, BinaryData::_8_wavSize, false), true);
+			break;
+		case 8:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_9_wav, BinaryData::_9_wavSize, false), true);
+			break;
+		case 9:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_10_wav, BinaryData::_10_wavSize, false), true);
+			break;
+		case 10:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_11_wav, BinaryData::_11_wavSize, false), true);
+			break;
+		case 11:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_12_wav, BinaryData::_12_wavSize, false), true);
+			break;
+		case 12:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_13_wav, BinaryData::_13_wavSize, false), true);
+			break;
+		case 13:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_14_wav, BinaryData::_14_wavSize, false), true);
+			break;
+		case 14:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_15_wav, BinaryData::_15_wavSize, false), true);
+			break;
+		case 15:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_16_wav, BinaryData::_16_wavSize, false), true);
+			break;
+		case 16:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_17_wav, BinaryData::_17_wavSize, false), true);
+			break;
+		case 17:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_18_wav, BinaryData::_18_wavSize, false), true);
+			break;
+		case 18:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_19_wav, BinaryData::_19_wavSize, false), true);
+			break;
+		case 19:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_20_wav, BinaryData::_20_wavSize, false), true);
+			break;
+		case 20:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_21_wav, BinaryData::_21_wavSize, false), true);
+			break;
+		case 21:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_22_wav, BinaryData::_22_wavSize, false), true);
+			break;
+		case 22:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_23_wav, BinaryData::_23_wavSize, false), true);
+			break;
+		case 23:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::_24_wav, BinaryData::_24_wavSize, false), true);
+			break;
+		}
+	}
+	else
+	{
+		switch (localTone)
+		{
+		case 0:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::accordion_wav, BinaryData::accordion_wavSize, false), true);
+			break;
+		case 1:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::bassoon_wav, BinaryData::bassoon_wavSize, false), true);
+			break;
+		case 2:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::cello_wav, BinaryData::cello_wavSize, false), true);
+			break;
+		case 3:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::epiano_wav, BinaryData::epiano_wavSize, false), true);
+			break;
+		case 4:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::flute_wav, BinaryData::flute_wavSize, false), true);
+			break;
+		case 5:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::honkypiano_wav, BinaryData::honkypiano_wavSize, false), true);
+			break;
+		case 6:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::metalguitar_wav, BinaryData::metalguitar_wavSize, false), true);
+			break;
+		case 7:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::piano_wav, BinaryData::piano_wavSize, false), true);
+			break;
+		case 8:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::poplead_wav, BinaryData::poplead_wavSize, false), true);
+			break;
+		case 9:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::synthaccordion_wav, BinaryData::synthaccordion_wavSize, false), true);
+			break;
+		case 10:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::synthbrass_wav, BinaryData::synthbrass_wavSize, false), true);
+			break;
+		case 11:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::synthlead_wav, BinaryData::synthlead_wavSize, false), true);
+		}
 	}
 
 	BigInteger allNotes;
@@ -134,7 +179,7 @@ void TnpCasioMt40AudioProcessor::setVoice()
 	synth.addSound(new SamplerSound("demo sound",
 		*audioReader,
 		allNotes,
-		74,   // root midi note
+		60,   // root midi note
 		0.01,  // attack time
 		0.1,  // release time
 		10.0  // maximum sample length
@@ -249,7 +294,8 @@ void TnpCasioMt40AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 
 	midiCollector.removeNextBlockOfMessages(midiMessages, buffer.getNumSamples());
 
-	if (localSampleTone != (int)*treeState.getRawParameterValue("sampleTone"))
+	if (localTone != (int)*treeState.getRawParameterValue("tone") ||
+		localKeyboard != (int)*treeState.getRawParameterValue("keyboard"))
 		setVoice();
 
 	// get the synth to process the midi events and generate its output.

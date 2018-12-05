@@ -61,7 +61,8 @@ public:
 	AudioProcessorValueTreeState treeState;
 
 private:
-	int localSampleTone;
+	int localTone;
+	int localKeyboard;
 
 	Synthesiser synth;
 	MidiMessageCollector midiCollector;

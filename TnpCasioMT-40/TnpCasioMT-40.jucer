@@ -1,36 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="uE9yKS" name="TnpCasioMT-40" projectType="audioplug" jucerVersion="5.3.2"
+<JUCERPROJECT id="uE9yKS" name="TnpCasioMT-40" projectType="audioplug" jucerVersion="5.4.1"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="uCgNwV" name="TnpCasioMT-40">
-    <GROUP id="{00DBDADC-9229-C9EF-F580-F138D66F9517}" name="Samples">
-      <FILE id="GU5sGS" name="1.wav" compile="0" resource="1" file="Samples/1.wav"/>
-      <FILE id="oiCm48" name="2.wav" compile="0" resource="1" file="Samples/2.wav"/>
-      <FILE id="Os69n0" name="3.wav" compile="0" resource="1" file="Samples/3.wav"/>
-      <FILE id="DZrGzz" name="4.wav" compile="0" resource="1" file="Samples/4.wav"/>
-      <FILE id="fi4FFW" name="5.wav" compile="0" resource="1" file="Samples/5.wav"/>
-      <FILE id="dUZZel" name="6.wav" compile="0" resource="1" file="Samples/6.wav"/>
-      <FILE id="YKHPNb" name="7.wav" compile="0" resource="1" file="Samples/7.wav"/>
-      <FILE id="oTes9k" name="8.wav" compile="0" resource="1" file="Samples/8.wav"/>
-      <FILE id="nBOlZ0" name="9.wav" compile="0" resource="1" file="Samples/9.wav"/>
-      <FILE id="aYXtgf" name="10.wav" compile="0" resource="1" file="Samples/10.wav"/>
-      <FILE id="eK5jVf" name="11.wav" compile="0" resource="1" file="Samples/11.wav"/>
-      <FILE id="DcYw0S" name="12.wav" compile="0" resource="1" file="Samples/12.wav"/>
-      <FILE id="O6llvc" name="13.wav" compile="0" resource="1" file="Samples/13.wav"/>
-      <FILE id="HIJJtS" name="14.wav" compile="0" resource="1" file="Samples/14.wav"/>
-      <FILE id="WUD6LU" name="15.wav" compile="0" resource="1" file="Samples/15.wav"/>
-      <FILE id="nVLC1k" name="16.wav" compile="0" resource="1" file="Samples/16.wav"/>
-      <FILE id="ytIAyn" name="17.wav" compile="0" resource="1" file="Samples/17.wav"/>
-      <FILE id="chcSz6" name="18.wav" compile="0" resource="1" file="Samples/18.wav"/>
-      <FILE id="HxOulO" name="19.wav" compile="0" resource="1" file="Samples/19.wav"/>
-      <FILE id="I3NN4P" name="20.wav" compile="0" resource="1" file="Samples/20.wav"/>
-      <FILE id="zimYIT" name="21.wav" compile="0" resource="1" file="Samples/21.wav"/>
-      <FILE id="Pnmadn" name="22.wav" compile="0" resource="1" file="Samples/22.wav"/>
-      <FILE id="B10EZz" name="23.wav" compile="0" resource="1" file="Samples/23.wav"/>
-      <FILE id="RYbx3X" name="24.wav" compile="0" resource="1" file="Samples/24.wav"/>
-      <FILE id="l324Ql" name="Casiotone+MT-40.png" compile="0" resource="1"
-            file="Samples/Casiotone+MT-40.png"/>
-    </GROUP>
     <GROUP id="{D17291E3-70CC-CCBC-11C6-9ED097C4B809}" name="Source">
       <FILE id="ERrDhU" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -39,6 +11,49 @@
       <FILE id="CDWovz" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="X8pSHt" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+    <GROUP id="{00DBDADC-9229-C9EF-F580-F138D66F9517}" name="Samples">
+      <GROUP id="{B7D3A551-573D-7E0B-5FF6-C9618C813C59}" name="Casio_MT-40">
+        <FILE id="OT9BuW" name="1.wav" compile="0" resource="1" file="Samples/Casio_MT-40/1.wav"/>
+        <FILE id="SlR7G0" name="2.wav" compile="0" resource="1" file="Samples/Casio_MT-40/2.wav"/>
+        <FILE id="w9fC7R" name="3.wav" compile="0" resource="1" file="Samples/Casio_MT-40/3.wav"/>
+        <FILE id="Oz94Op" name="4.wav" compile="0" resource="1" file="Samples/Casio_MT-40/4.wav"/>
+        <FILE id="Pxc3fS" name="5.wav" compile="0" resource="1" file="Samples/Casio_MT-40/5.wav"/>
+        <FILE id="DSrl2d" name="6.wav" compile="0" resource="1" file="Samples/Casio_MT-40/6.wav"/>
+        <FILE id="Law4uF" name="7.wav" compile="0" resource="1" file="Samples/Casio_MT-40/7.wav"/>
+        <FILE id="h7QotT" name="8.wav" compile="0" resource="1" file="Samples/Casio_MT-40/8.wav"/>
+        <FILE id="BK9cxq" name="9.wav" compile="0" resource="1" file="Samples/Casio_MT-40/9.wav"/>
+        <FILE id="OEZ9Nx" name="10.wav" compile="0" resource="1" file="Samples/Casio_MT-40/10.wav"/>
+        <FILE id="oROFpm" name="11.wav" compile="0" resource="1" file="Samples/Casio_MT-40/11.wav"/>
+        <FILE id="EeKFk5" name="12.wav" compile="0" resource="1" file="Samples/Casio_MT-40/12.wav"/>
+        <FILE id="Bkch13" name="13.wav" compile="0" resource="1" file="Samples/Casio_MT-40/13.wav"/>
+        <FILE id="PDHYOa" name="14.wav" compile="0" resource="1" file="Samples/Casio_MT-40/14.wav"/>
+        <FILE id="oS8oyR" name="15.wav" compile="0" resource="1" file="Samples/Casio_MT-40/15.wav"/>
+        <FILE id="Zg1cVl" name="16.wav" compile="0" resource="1" file="Samples/Casio_MT-40/16.wav"/>
+        <FILE id="xGdeNJ" name="17.wav" compile="0" resource="1" file="Samples/Casio_MT-40/17.wav"/>
+        <FILE id="MlzVMr" name="18.wav" compile="0" resource="1" file="Samples/Casio_MT-40/18.wav"/>
+        <FILE id="DMFB1Y" name="19.wav" compile="0" resource="1" file="Samples/Casio_MT-40/19.wav"/>
+        <FILE id="SVtg2x" name="20.wav" compile="0" resource="1" file="Samples/Casio_MT-40/20.wav"/>
+        <FILE id="gtzFYb" name="21.wav" compile="0" resource="1" file="Samples/Casio_MT-40/21.wav"/>
+        <FILE id="sm4vru" name="22.wav" compile="0" resource="1" file="Samples/Casio_MT-40/22.wav"/>
+        <FILE id="RY5Nq7" name="23.wav" compile="0" resource="1" file="Samples/Casio_MT-40/23.wav"/>
+        <FILE id="MDfWot" name="24.wav" compile="0" resource="1" file="Samples/Casio_MT-40/24.wav"/>
+      </GROUP>
+      <GROUP id="{3F845EF0-FE9C-D463-1E5D-B893EA8BC19F}" name="Casio_SA-10">
+        <FILE id="oJ2IVp" name="accordion.wav" compile="0" resource="1" file="Samples/Casio_SA-10/accordion.wav"/>
+        <FILE id="S8b7Wf" name="bassoon.wav" compile="0" resource="1" file="Samples/Casio_SA-10/bassoon.wav"/>
+        <FILE id="PY3BlB" name="cello.wav" compile="0" resource="1" file="Samples/Casio_SA-10/cello.wav"/>
+        <FILE id="IIdHWu" name="epiano.wav" compile="0" resource="1" file="Samples/Casio_SA-10/epiano.wav"/>
+        <FILE id="L1TPII" name="flute.wav" compile="0" resource="1" file="Samples/Casio_SA-10/flute.wav"/>
+        <FILE id="nPUffe" name="honkypiano.wav" compile="0" resource="1" file="Samples/Casio_SA-10/honkypiano.wav"/>
+        <FILE id="ulAinX" name="metalguitar.wav" compile="0" resource="1" file="Samples/Casio_SA-10/metalguitar.wav"/>
+        <FILE id="u79x02" name="piano.wav" compile="0" resource="1" file="Samples/Casio_SA-10/piano.wav"/>
+        <FILE id="FNZD57" name="poplead.wav" compile="0" resource="1" file="Samples/Casio_SA-10/poplead.wav"/>
+        <FILE id="fTJx1z" name="synthaccordion.wav" compile="0" resource="1"
+              file="Samples/Casio_SA-10/synthaccordion.wav"/>
+        <FILE id="Ol5XL7" name="synthbrass.wav" compile="0" resource="1" file="Samples/Casio_SA-10/synthbrass.wav"/>
+        <FILE id="ZQodKJ" name="synthlead.wav" compile="0" resource="1" file="Samples/Casio_SA-10/synthlead.wav"/>
+      </GROUP>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
