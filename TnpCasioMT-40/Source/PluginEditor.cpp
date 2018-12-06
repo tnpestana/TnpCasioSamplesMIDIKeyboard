@@ -27,8 +27,9 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 		casioMT40_tones.add((String)i);
 
 	comboKeyboard.addItem("casio MT-40", 1);
-	comboKeyboard.addItem("casio SA-10", 2);
-	comboKeyboard.addItem("casio SK-1", 3);
+	comboKeyboard.addItem("casio Rapman", 2);
+	comboKeyboard.addItem("casio SA-10", 3);
+	comboKeyboard.addItem("casio SK-1", 4);
 
 	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "keyboard", comboKeyboard);
 	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "tone", comboTone);
@@ -45,8 +46,17 @@ TnpCasioMt40AudioProcessorEditor::~TnpCasioMt40AudioProcessorEditor()
 
 StringArray TnpCasioMt40AudioProcessorEditor::casioMT40_tones{};
 
+StringArray TnpCasioMt40AudioProcessorEditor::casioRPMN_tones{
+	"agogo", "ambulance", "band hit-brass", "bells", 
+	"brass ens", "car horn", "church bells", "e bass",
+	"echo brass", "emergency alarm", "e organ", "flute",
+	"gamelan", "metal guitar", "orchestra hit", "piano",
+	"sitar", "synth lead", "synth reed", "twinkle echo",
+	"vibraphone", "vocoder", "warm strings", "waw voice"
+};
+
 StringArray TnpCasioMt40AudioProcessorEditor::casioSA10_tones{
-	"accordion", "basson", "cello", "piano", "flute",
+	"accordion", "basson", "cello", "e piano", "flute",
 	"honkypiano", "metalguitar", "piano", "poplead",
 	"synthaccordion", "synthbrass", "synthlead"
 };
@@ -85,13 +95,19 @@ void TnpCasioMt40AudioProcessorEditor::manageComboBoxes()
 		comboTone.addItemList(casioMT40_tones, 1);
 		comboTone.setSelectedItemIndex(0);
 	}
-	else if(keyboardParam == 2)
+	else if (keyboardParam == 2)
+	{
+		comboTone.clear();
+		comboTone.addItemList(casioRPMN_tones, 1);
+		comboTone.setSelectedItemIndex(0);
+	}
+	else if(keyboardParam == 3)
 	{
 		comboTone.clear();
 		comboTone.addItemList(casioSA10_tones, 1);
 		comboTone.setSelectedItemIndex(0);
 	}
-	else if (keyboardParam == 3)
+	else if (keyboardParam == 4)
 	{
 		comboTone.clear();
 		comboTone.addItemList(casioSK1_tones, 1);

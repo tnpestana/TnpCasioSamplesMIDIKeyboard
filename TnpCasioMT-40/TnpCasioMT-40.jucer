@@ -39,6 +39,50 @@
         <FILE id="aXcMeG" name="23.wav" compile="0" resource="1" file="Samples/Casio_MT-40/23.wav"/>
         <FILE id="cPAIlf" name="24.wav" compile="0" resource="1" file="Samples/Casio_MT-40/24.wav"/>
       </GROUP>
+      <GROUP id="{4A7204C4-1576-5D46-793B-FB614C5E2E70}" name="Casio_RPMN">
+        <FILE id="GZQcQe" name="RPMN-_vocoder.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN-_vocoder.wav"/>
+        <FILE id="lLkdzP" name="RPMN_agogo.wav" compile="0" resource="1" file="Samples/Casio_RPMN/RPMN_agogo.wav"/>
+        <FILE id="xgbpcX" name="RPMN_ambulance.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_ambulance.wav"/>
+        <FILE id="UtJFVu" name="RPMN_band-hit-brass.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_band-hit-brass.wav"/>
+        <FILE id="oEj4Nc" name="RPMN_bells.wav" compile="0" resource="1" file="Samples/Casio_RPMN/RPMN_bells.wav"/>
+        <FILE id="NBtIFJ" name="RPMN_brass-ens.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_brass-ens.wav"/>
+        <FILE id="ntTG79" name="RPMN_car-horn.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_car-horn.wav"/>
+        <FILE id="Fg3ISV" name="RPMN_church-bells.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_church-bells.wav"/>
+        <FILE id="hiaZBq" name="RPMN_e-bass.wav" compile="0" resource="1" file="Samples/Casio_RPMN/RPMN_e-bass.wav"/>
+        <FILE id="IAzASm" name="RPMN_e-organ.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_e-organ.wav"/>
+        <FILE id="KY2Tt8" name="RPMN_echo-brass.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_echo-brass.wav"/>
+        <FILE id="jgRrLp" name="RPMN_emergency-alarm.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_emergency-alarm.wav"/>
+        <FILE id="O7V7Cd" name="RPMN_flute.wav" compile="0" resource="1" file="Samples/Casio_RPMN/RPMN_flute.wav"/>
+        <FILE id="PHpCzs" name="RPMN_gamelan.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_gamelan.wav"/>
+        <FILE id="DTzr8G" name="RPMN_metal-guitar.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_metal-guitar.wav"/>
+        <FILE id="K4mkZG" name="RPMN_orchestra-hit.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_orchestra-hit.wav"/>
+        <FILE id="rF2spV" name="RPMN_piano.wav" compile="0" resource="1" file="Samples/Casio_RPMN/RPMN_piano.wav"/>
+        <FILE id="N1M1aQ" name="RPMN_sitar.wav" compile="0" resource="1" file="Samples/Casio_RPMN/RPMN_sitar.wav"/>
+        <FILE id="zZwG7M" name="RPMN_synth-lead.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_synth-lead.wav"/>
+        <FILE id="dN7SQy" name="RPMN_synth-reed.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_synth-reed.wav"/>
+        <FILE id="MVKdkg" name="RPMN_twinkle-echo.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_twinkle-echo.wav"/>
+        <FILE id="qhh2cE" name="RPMN_vibraphone.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_vibraphone.wav"/>
+        <FILE id="NHnVis" name="RPMN_warm-strings.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_warm-strings.wav"/>
+        <FILE id="V2syPW" name="RPMN_waw-voice.wav" compile="0" resource="1"
+              file="Samples/Casio_RPMN/RPMN_waw-voice.wav"/>
+      </GROUP>
       <GROUP id="{3F845EF0-FE9C-D463-1E5D-B893EA8BC19F}" name="Casio_SA-10">
         <FILE id="Yk6k7K" name="SA10_accordion.wav" compile="0" resource="1"
               file="Samples/Casio_SA-10/SA10_accordion.wav"/>

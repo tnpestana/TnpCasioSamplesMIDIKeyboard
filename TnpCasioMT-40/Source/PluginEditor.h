@@ -35,6 +35,7 @@ private:
     TnpCasioMt40AudioProcessor& processor;
 
 	static StringArray casioMT40_tones;
+	static StringArray casioRPMN_tones;
 	static StringArray casioSA10_tones;
 	static StringArray casioSK1_tones;
 

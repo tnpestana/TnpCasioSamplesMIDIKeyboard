@@ -27,7 +27,7 @@ TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
 	localTone(0)
 #endif
 {
-	NormalisableRange<float> keyboardRange(0, 2, 1);
+	NormalisableRange<float> keyboardRange(0, 3, 1);
 	treeState.createAndAddParameter("keyboard", "keyboard", String(), keyboardRange, 0, nullptr, nullptr);
 	// tone range only has to be as big as the keyboard with the most samples, in this case the MT-40's 24 sounds
 	NormalisableRange<float> toneRange(0, 23, 1);
@@ -132,7 +132,86 @@ void TnpCasioMt40AudioProcessor::setVoice()
 			break;
 		}
 	}
-	else if(localKeyboard == 1)
+	else if (localKeyboard == 1)
+	{
+		// also 24 sounds so no index mapping is needed
+		switch (localTone)
+		{
+		case 0:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_agogo_wav, BinaryData::RPMN_agogo_wavSize, false), true);
+			break;
+		case 1:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_ambulance_wav, BinaryData::RPMN_ambulance_wavSize, false), true);
+			break;
+		case 2:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_bandhitbrass_wav, BinaryData::RPMN_bandhitbrass_wavSize, false), true);
+			break;
+		case 3:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_bells_wav, BinaryData::RPMN_bells_wavSize, false), true);
+			break;
+		case 4:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_brassens_wav, BinaryData::RPMN_brassens_wavSize, false), true);
+			break;
+		case 5:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_carhorn_wav, BinaryData::RPMN_carhorn_wavSize, false), true);
+			break;
+		case 6:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_churchbells_wav, BinaryData::RPMN_churchbells_wavSize, false), true);
+			break;
+		case 7:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_ebass_wav, BinaryData::RPMN_ebass_wavSize, false), true);
+			break;
+		case 8:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_echobrass_wav, BinaryData::RPMN_echobrass_wavSize, false), true);
+			break;
+		case 9:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_emergencyalarm_wav, BinaryData::RPMN_emergencyalarm_wavSize, false), true);
+			break;
+		case 10:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_eorgan_wav, BinaryData::RPMN_eorgan_wavSize, false), true);
+			break;
+		case 11:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_flute_wav, BinaryData::RPMN_flute_wavSize, false), true);
+			break;
+		case 12:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_gamelan_wav, BinaryData::RPMN_gamelan_wavSize, false), true);
+			break;
+		case 13:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_metalguitar_wav, BinaryData::RPMN_metalguitar_wavSize, false), true);
+			break;
+		case 14:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_orchestrahit_wav, BinaryData::RPMN_orchestrahit_wavSize, false), true);
+			break;
+		case 15:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_piano_wav, BinaryData::RPMN_piano_wavSize, false), true);
+			break;
+		case 16:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_sitar_wav, BinaryData::RPMN_sitar_wavSize, false), true);
+			break;
+		case 17:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_synthlead_wav, BinaryData::RPMN_synthlead_wavSize, false), true);
+			break;
+		case 18:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_synthreed_wav, BinaryData::RPMN_synthreed_wavSize, false), true);
+			break;
+		case 19:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_twinkleecho_wav, BinaryData::RPMN_twinkleecho_wavSize, false), true);
+			break;
+		case 20:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_vibraphone_wav, BinaryData::RPMN_vibraphone_wavSize, false), true);
+			break;
+		case 21:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_vocoder_wav, BinaryData::RPMN_vocoder_wavSize, false), true);
+			break;
+		case 22:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_warmstrings_wav, BinaryData::RPMN_warmstrings_wavSize, false), true);
+			break;
+		case 23:
+			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::RPMN_wawvoice_wav, BinaryData::RPMN_warmstrings_wavSize, false), true);
+			break;
+		}
+	}
+	else if(localKeyboard == 2)
 	{
 		// accomodate the combo attachment linear distribution of values by converting the range intervals
 		// to map [A, B] --> [a, b] use: (val - A)*(b-a)/(B-A) + a
@@ -176,7 +255,8 @@ void TnpCasioMt40AudioProcessor::setVoice()
 			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::SA10_synthlead_wav, BinaryData::SA10_synthlead_wavSize, false), true);
 		}
 	}
-	else {
+	else if(localKeyboard == 3)
+	{
 		// accomodate the combo attachment linear distribution of values by converting the range intervals
 		// to map [A, B] --> [a, b] use: (val - A)*(b-a)/(B-A) + a
 		int convertedLocalTone = localTone * 8 / 24;
@@ -207,7 +287,7 @@ void TnpCasioMt40AudioProcessor::setVoice()
 			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::SK1_voice_wav, BinaryData::SK1_voice_wavSize, false), true);
 			break;
 		}
-	}
+	} 
 
 	BigInteger allNotes;
 	allNotes.setRange(0, 128, true);
