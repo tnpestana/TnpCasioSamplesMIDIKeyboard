@@ -28,6 +28,7 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 
 	comboKeyboard.addItem("casio MT-40", 1);
 	comboKeyboard.addItem("casio SA-10", 2);
+	comboKeyboard.addItem("casio SK-1", 3);
 
 	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "keyboard", comboKeyboard);
 	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "tone", comboTone);
@@ -48,6 +49,11 @@ StringArray TnpCasioMt40AudioProcessorEditor::casioSA10_tones{
 	"accordion", "basson", "cello", "piano", "flute",
 	"honkypiano", "metalguitar", "piano", "poplead",
 	"synthaccordion", "synthbrass", "synthlead"
+};
+
+StringArray TnpCasioMt40AudioProcessorEditor::casioSK1_tones{
+	"brass", "flute", "organ", "piano", "pipeorgan", 
+	"synthdrum", "trumpet", "voice"
 };
 
 //==============================================================================
@@ -72,7 +78,7 @@ void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHa
 
 void TnpCasioMt40AudioProcessorEditor::manageComboBoxes() 
 {
-	int keyboardParam = comboKeyboard.getSelectedId();//(int)*processor.treeState.getRawParameterValue("keyboard");
+	int keyboardParam = comboKeyboard.getSelectedId();
 	if (keyboardParam == 1)
 	{
 		comboTone.clear();
@@ -83,6 +89,12 @@ void TnpCasioMt40AudioProcessorEditor::manageComboBoxes()
 	{
 		comboTone.clear();
 		comboTone.addItemList(casioSA10_tones, 1);
+		comboTone.setSelectedItemIndex(0);
+	}
+	else if (keyboardParam == 3)
+	{
+		comboTone.clear();
+		comboTone.addItemList(casioSK1_tones, 1);
 		comboTone.setSelectedItemIndex(0);
 	}
 }
