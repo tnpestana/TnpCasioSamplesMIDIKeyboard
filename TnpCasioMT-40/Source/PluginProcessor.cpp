@@ -132,7 +132,10 @@ void TnpCasioMt40AudioProcessor::setVoice()
 	}
 	else
 	{
-		switch (localTone)
+		// accomodate the combo attachment linear distribution of values by converting the range intervals
+		// to map [A, B] --> [a, b] use: (val - A)*(b-a)/(B-A) + a
+		int convertedLocalTone = localTone * 12 / 24;
+		switch (convertedLocalTone)
 		{
 		case 0:
 			audioReader = (AudioFormatReader*)wavFormat.createReaderFor(new MemoryInputStream(BinaryData::accordion_wav, BinaryData::accordion_wavSize, false), true);
