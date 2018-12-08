@@ -27,8 +27,9 @@ public:
     void resized() override;
 
 private:
-
-	void TnpCasioMt40AudioProcessorEditor::manageComboBoxes();
+	// Inherited via Listener
+	virtual void comboBoxChanged(ComboBox * comboBoxThatHasChanged) override;
+	void TnpCasioMt40AudioProcessorEditor::keyboardChanged();
 
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -46,7 +47,4 @@ private:
 	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentKeyboard;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpCasioMt40AudioProcessorEditor)
-
-		// Inherited via Listener
-		virtual void comboBoxChanged(ComboBox * comboBoxThatHasChanged) override;
 };

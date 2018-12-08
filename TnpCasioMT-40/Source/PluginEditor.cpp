@@ -34,7 +34,7 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "keyboard", comboKeyboard);
 	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "tone", comboTone);
 
-	manageComboBoxes();
+	keyboardChanged();
 
 	comboKeyboard.addListener(this);
 	comboTone.addListener(this);
@@ -83,34 +83,45 @@ void TnpCasioMt40AudioProcessorEditor::resized()
 void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
 {
 	if(&comboKeyboard == comboBoxThatHasChanged)
-		manageComboBoxes();
+		keyboardChanged();
 }
 
-void TnpCasioMt40AudioProcessorEditor::manageComboBoxes() 
+void TnpCasioMt40AudioProcessorEditor::keyboardChanged() 
 {
 	int keyboardParam = comboKeyboard.getSelectedId();
+	int toneParam = *processor.treeState.getRawParameterValue("tone");
+	// MT-40
 	if (keyboardParam == 1)
 	{
 		comboTone.clear();
 		comboTone.addItemList(casioMT40_tones, 1);
-		comboTone.setSelectedItemIndex(0);
+		comboTone.setSelectedItemIndex(toneParam);
 	}
+	// RPMN
 	else if (keyboardParam == 2)
 	{
 		comboTone.clear();
 		comboTone.addItemList(casioRPMN_tones, 1);
-		comboTone.setSelectedItemIndex(0);
+		comboTone.setSelectedItemIndex(toneParam);
 	}
-	else if(keyboardParam == 3)
+	// SA-10
+	else if (keyboardParam == 3)
 	{
 		comboTone.clear();
 		comboTone.addItemList(casioSA10_tones, 1);
-		comboTone.setSelectedItemIndex(0);
+		// accomodate the combo attachment linear distribution of values by converting the range intervals
+		// to map [A, B] --> [a, b] use: (val - A)*(b-a)/(B-A) + a
+		int convertedToneParam = toneParam * 12 / 24;
+		comboTone.setSelectedItemIndex(convertedToneParam);
 	}
+	// SK-1
 	else if (keyboardParam == 4)
 	{
 		comboTone.clear();
 		comboTone.addItemList(casioSK1_tones, 1);
-		comboTone.setSelectedItemIndex(0);
+		// accomodate the combo attachment linear distribution of values by converting the range intervals
+		// to map [A, B] --> [a, b] use: (val - A)*(b-a)/(B-A) + a
+		int convertedToneParam = toneParam * 8 / 24;
+		comboTone.setSelectedItemIndex(convertedToneParam);
 	}
 }
