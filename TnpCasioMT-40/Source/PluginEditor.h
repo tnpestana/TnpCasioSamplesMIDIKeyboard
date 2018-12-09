@@ -19,7 +19,7 @@
 class TnpCasioMt40AudioProcessorEditor  : public AudioProcessorEditor, public ComboBox::Listener
 {
 public:
-    TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&);
+    TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&, AudioProcessorValueTreeState&);
     ~TnpCasioMt40AudioProcessorEditor();
 
     //==============================================================================
@@ -34,6 +34,7 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     TnpCasioMt40AudioProcessor& processor;
+	AudioProcessorValueTreeState& treeState;
 
 	static StringArray casioMT40_tones;
 	static StringArray casioRPMN_tones;

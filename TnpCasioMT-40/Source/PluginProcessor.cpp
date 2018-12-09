@@ -426,7 +426,7 @@ bool TnpCasioMt40AudioProcessor::hasEditor() const
 
 AudioProcessorEditor* TnpCasioMt40AudioProcessor::createEditor()
 {
-    return new TnpCasioMt40AudioProcessorEditor (*this);
+    return new TnpCasioMt40AudioProcessorEditor (*this, treeState);
 }
 
 //==============================================================================

@@ -12,8 +12,8 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p)
-    : AudioProcessorEditor (&p), processor (p)
+TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p, AudioProcessorValueTreeState& apvts)
+    : AudioProcessorEditor (&p), processor (p), treeState (apvts)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -31,8 +31,8 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 	comboKeyboard.addItem("casio SA-10", 3);
 	comboKeyboard.addItem("casio SK-1", 4);
 
-	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "keyboard", comboKeyboard);
-	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(p.treeState, "tone", comboTone);
+	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(treeState, "keyboard", comboKeyboard);
+	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(treeState, "tone", comboTone);
 
 	keyboardChanged();
 
@@ -89,7 +89,8 @@ void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHa
 void TnpCasioMt40AudioProcessorEditor::keyboardChanged() 
 {
 	int keyboardParam = comboKeyboard.getSelectedId();
-	int toneParam = *processor.treeState.getRawParameterValue("tone");
+	int toneParam = *treeState.getRawParameterValue("tone");
+	//if (toneParam == 0) toneParam++;
 	// MT-40
 	if (keyboardParam == 1)
 	{

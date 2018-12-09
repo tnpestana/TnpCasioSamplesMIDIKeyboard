@@ -58,11 +58,10 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-	AudioProcessorValueTreeState treeState;
-
 private:
 	int localTone;
 	int localKeyboard;
+	AudioProcessorValueTreeState treeState;
 
 	Synthesiser synth;
 	MidiMessageCollector midiCollector;
