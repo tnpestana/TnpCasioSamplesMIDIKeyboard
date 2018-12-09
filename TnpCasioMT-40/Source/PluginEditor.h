@@ -19,7 +19,8 @@
 class TnpCasioMt40AudioProcessorEditor  : public AudioProcessorEditor, public ComboBox::Listener
 {
 public:
-    TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&, AudioProcessorValueTreeState&);
+    TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&, AudioProcessorValueTreeState&,
+									  MidiKeyboardState&);
     ~TnpCasioMt40AudioProcessorEditor();
 
     //==============================================================================
@@ -43,6 +44,8 @@ private:
 
 	ComboBox comboKeyboard;
 	ComboBox comboTone;
+
+	MidiKeyboardComponent keyboard;
 
 	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentTone;
 	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentKeyboard;

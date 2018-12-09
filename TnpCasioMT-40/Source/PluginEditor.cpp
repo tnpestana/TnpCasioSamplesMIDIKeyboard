@@ -12,15 +12,17 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p, AudioProcessorValueTreeState& apvts)
-    : AudioProcessorEditor (&p), processor (p), treeState (apvts)
+TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p, AudioProcessorValueTreeState& apvts,
+																	MidiKeyboardState& mks)
+    : AudioProcessorEditor (&p), processor (p), treeState (apvts), keyboard(mks, MidiKeyboardComponent::horizontalKeyboard)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (200, 200);
+    setSize (400, 200);
 
 	addAndMakeVisible(comboKeyboard);
 	addAndMakeVisible(comboTone);
+	addAndMakeVisible(keyboard);
 
 	// populate casioMT-40_tones list with numbers while we dont have sound names
 	for (int i = 1; i < 25; i++)
@@ -76,8 +78,12 @@ void TnpCasioMt40AudioProcessorEditor::paint (Graphics& g)
 void TnpCasioMt40AudioProcessorEditor::resized()
 {
 	Rectangle<int> area(getLocalBounds());
-	comboTone.setBounds(area.removeFromBottom(area.getHeight() / 2).reduced(40));
-	comboKeyboard.setBounds(area.reduced(40));
+
+	Rectangle<int> combosArea(area.removeFromTop(area.getHeight() / 2));
+	comboKeyboard.setBounds(combosArea.removeFromLeft(area.getWidth() / 2).reduced(40));
+	comboTone.setBounds(combosArea.reduced(40));
+
+	keyboard.setBounds(area.reduced(5));
 }
 
 void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)

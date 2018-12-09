@@ -24,7 +24,8 @@ TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
 	),
 	treeState(*this, nullptr),
 	localKeyboard(0),
-	localTone(0)
+	localTone(0),
+	midiState()
 #endif
 {
 	NormalisableRange<float> keyboardRange(0, 3, 1);
@@ -414,6 +415,8 @@ void TnpCasioMt40AudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 		localKeyboard != (int)*treeState.getRawParameterValue("keyboard"))
 		setVoice();
 
+	midiState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
+
 	// get the synth to process the midi events and generate its output.
 	synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
@@ -426,7 +429,7 @@ bool TnpCasioMt40AudioProcessor::hasEditor() const
 
 AudioProcessorEditor* TnpCasioMt40AudioProcessor::createEditor()
 {
-    return new TnpCasioMt40AudioProcessorEditor (*this, treeState);
+    return new TnpCasioMt40AudioProcessorEditor (*this, treeState, midiState);
 }
 
 //==============================================================================

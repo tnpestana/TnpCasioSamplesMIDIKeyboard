@@ -62,6 +62,7 @@ private:
 	int localTone;
 	int localKeyboard;
 	AudioProcessorValueTreeState treeState;
+	MidiKeyboardState midiState;
 
 	Synthesiser synth;
 	MidiMessageCollector midiCollector;
