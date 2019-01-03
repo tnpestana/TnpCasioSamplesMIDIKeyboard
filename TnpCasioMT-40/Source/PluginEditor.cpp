@@ -72,7 +72,14 @@ StringArray TnpCasioMt40AudioProcessorEditor::casioSK1_tones{
 void TnpCasioMt40AudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+	g.fillAll(juce::Colours::darkgrey);
+
+	getLookAndFeel().setColour(ComboBox::backgroundColourId, Colours::white);
+	getLookAndFeel().setColour(ComboBox::textColourId, Colours::black);
+	getLookAndFeel().setColour(ComboBox::arrowColourId, Colours::black);
+	getLookAndFeel().setColour(PopupMenu::backgroundColourId, Colours::white);
+	getLookAndFeel().setColour(PopupMenu::textColourId, Colours::black);
 }
 
 void TnpCasioMt40AudioProcessorEditor::resized()
@@ -96,39 +103,39 @@ void TnpCasioMt40AudioProcessorEditor::keyboardChanged()
 {
 	int keyboardParam = comboKeyboard.getSelectedId();
 	int toneParam = *treeState.getRawParameterValue("tone");
-	//if (toneParam == 0) toneParam++;
-	// MT-40
-	if (keyboardParam == 1)
+	int convertedToneParam = 0;
+	
+	switch(keyboardParam)
 	{
+	// MT
+	case 1:
 		comboTone.clear();
 		comboTone.addItemList(casioMT40_tones, 1);
 		comboTone.setSelectedItemIndex(toneParam);
-	}
+		break;
 	// RPMN
-	else if (keyboardParam == 2)
-	{
+	case 2:
 		comboTone.clear();
 		comboTone.addItemList(casioRPMN_tones, 1);
 		comboTone.setSelectedItemIndex(toneParam);
-	}
+		break;
 	// SA-10
-	else if (keyboardParam == 3)
-	{
+	case 3:
 		comboTone.clear();
 		comboTone.addItemList(casioSA10_tones, 1);
 		// accomodate the combo attachment linear distribution of values by converting the range intervals
 		// to map [A, B] --> [a, b] use: (val - A)*(b-a)/(B-A) + a
-		int convertedToneParam = toneParam * 12 / 24;
+		convertedToneParam = toneParam * 12 / 24;
 		comboTone.setSelectedItemIndex(convertedToneParam);
-	}
+		break;
 	// SK-1
-	else if (keyboardParam == 4)
-	{
+	case 4:
 		comboTone.clear();
 		comboTone.addItemList(casioSK1_tones, 1);
 		// accomodate the combo attachment linear distribution of values by converting the range intervals
 		// to map [A, B] --> [a, b] use: (val - A)*(b-a)/(B-A) + a
-		int convertedToneParam = toneParam * 8 / 24;
+		convertedToneParam = toneParam * 8 / 24;
 		comboTone.setSelectedItemIndex(convertedToneParam);
+		break;
 	}
 }

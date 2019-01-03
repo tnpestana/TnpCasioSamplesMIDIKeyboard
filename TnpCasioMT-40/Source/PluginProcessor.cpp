@@ -22,19 +22,17 @@ TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
 		.withOutput("Output", AudioChannelSet::stereo(), true)
 #endif
 	),
-	treeState(*this, nullptr),
+	treeState(*this, nullptr, "CasioState", 
+		{ 
+		  std::make_unique<AudioParameterChoice>("keyboard", "keyboard",
+			StringArray("mt-40", "rapman", "sa-10", "sk-1"), 1),
+		  std::make_unique<AudioParameterInt>("tone", "tone", 0, 23, 1)
+		}),
 	localKeyboard(0),
 	localTone(0),
 	midiState()
 #endif
 {
-	NormalisableRange<float> keyboardRange(0, 3, 1);
-	treeState.createAndAddParameter("keyboard", "keyboard", String(), keyboardRange, 0, nullptr, nullptr);
-	// tone range only has to be as big as the keyboard with the most samples, in this case the MT-40's 24 sounds
-	NormalisableRange<float> toneRange(0, 23, 1);
-	treeState.createAndAddParameter("tone", "tone", String(), toneRange, 0, nullptr, nullptr);
-	treeState.state = ValueTree(Identifier("CasioState"));
-
 	setVoice();
 }
 
