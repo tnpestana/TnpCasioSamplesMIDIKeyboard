@@ -16,7 +16,8 @@
 //==============================================================================
 /**
 */
-class TnpCasioMt40AudioProcessorEditor  : public AudioProcessorEditor, public ComboBox::Listener
+class TnpCasioMt40AudioProcessorEditor  : public AudioProcessorEditor, 
+										  public ComboBox::Listener
 {
 public:
     TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&, AudioProcessorValueTreeState&,
@@ -51,4 +52,9 @@ private:
 	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentKeyboard;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpCasioMt40AudioProcessorEditor)
+
+		
+
+		
+
 };

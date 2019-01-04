@@ -25,7 +25,7 @@ TnpCasioMt40AudioProcessor::TnpCasioMt40AudioProcessor()
 	treeState(*this, nullptr, "CasioState", 
 		{ 
 		  std::make_unique<AudioParameterChoice>("keyboard", "keyboard",
-			StringArray("mt-40", "rapman", "sa-10", "sk-1"), 1),
+			StringArray("MT-40", "Rapman", "SA-10", "SK-1"), 1),
 		  std::make_unique<AudioParameterInt>("tone", "tone", 0, 23, 1)
 		}),
 	localKeyboard(0),
@@ -427,7 +427,7 @@ bool TnpCasioMt40AudioProcessor::hasEditor() const
 
 AudioProcessorEditor* TnpCasioMt40AudioProcessor::createEditor()
 {
-    return new TnpCasioMt40AudioProcessorEditor (*this, treeState, midiState);
+	return new TnpCasioMt40AudioProcessorEditor(*this, treeState, midiState);
 }
 
 //==============================================================================

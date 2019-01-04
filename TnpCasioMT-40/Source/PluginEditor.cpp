@@ -12,34 +12,38 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p, AudioProcessorValueTreeState& apvts,
+TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p, 
+																	AudioProcessorValueTreeState& apvts, 
 																	MidiKeyboardState& mks)
-    : AudioProcessorEditor (&p), processor (p), treeState (apvts), keyboard(mks, MidiKeyboardComponent::horizontalKeyboard)
+    : AudioProcessorEditor (&p),
+	processor (p), 
+	treeState (apvts), 
+	keyboard(mks, MidiKeyboardComponent::horizontalKeyboard)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    setSize (400, 200);
-
 	addAndMakeVisible(comboKeyboard);
 	addAndMakeVisible(comboTone);
 	addAndMakeVisible(keyboard);
+
+	// populate keyboard choice combo box with strings stored as choices in keyboard parameter
+	if (auto* choiceParameter = dynamic_cast<AudioParameterChoice*>(treeState.getParameter("keyboard")))
+		comboKeyboard.addItemList(choiceParameter->choices, 1);
 
 	// populate casioMT-40_tones list with numbers while we dont have sound names
 	for (int i = 1; i < 25; i++)
 		casioMT40_tones.add((String)i);
 
-	comboKeyboard.addItem("casio MT-40", 1);
-	comboKeyboard.addItem("casio Rapman", 2);
-	comboKeyboard.addItem("casio SA-10", 3);
-	comboKeyboard.addItem("casio SK-1", 4);
-
 	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(treeState, "keyboard", comboKeyboard);
 	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(treeState, "tone", comboTone);
+
+	if (comboKeyboard.getSelectedId() == 0)
+		comboKeyboard.setSelectedId(1);
 
 	keyboardChanged();
 
 	comboKeyboard.addListener(this);
 	comboTone.addListener(this);
+
+	setSize(400, 200);
 }
 
 TnpCasioMt40AudioProcessorEditor::~TnpCasioMt40AudioProcessorEditor()
@@ -95,7 +99,7 @@ void TnpCasioMt40AudioProcessorEditor::resized()
 
 void TnpCasioMt40AudioProcessorEditor::comboBoxChanged(ComboBox * comboBoxThatHasChanged)
 {
-	if(&comboKeyboard == comboBoxThatHasChanged)
+	if (&comboKeyboard == comboBoxThatHasChanged)
 		keyboardChanged();
 }
 
@@ -107,7 +111,7 @@ void TnpCasioMt40AudioProcessorEditor::keyboardChanged()
 	
 	switch(keyboardParam)
 	{
-	// MT
+	// MT-40
 	case 1:
 		comboTone.clear();
 		comboTone.addItemList(casioMT40_tones, 1);
@@ -139,3 +143,6 @@ void TnpCasioMt40AudioProcessorEditor::keyboardChanged()
 		break;
 	}
 }
+
+
+
