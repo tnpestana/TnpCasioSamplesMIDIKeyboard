@@ -41,6 +41,18 @@ TnpCasioMt40AudioProcessor::~TnpCasioMt40AudioProcessor()
 }
 
 
+//==============================================================================
+AudioProcessorValueTreeState& TnpCasioMt40AudioProcessor::getTreeState()
+{
+	return treeState;
+}
+
+MidiKeyboardState & TnpCasioMt40AudioProcessor::getMidiState()
+{
+	return midiState;
+}
+
+//==============================================================================
 void TnpCasioMt40AudioProcessor::setVoice()
 {
 	synth.clearVoices();
@@ -427,7 +439,7 @@ bool TnpCasioMt40AudioProcessor::hasEditor() const
 
 AudioProcessorEditor* TnpCasioMt40AudioProcessor::createEditor()
 {
-	return new TnpCasioMt40AudioProcessorEditor(*this, treeState, midiState);
+	return new TnpCasioMt40AudioProcessorEditor(*this);
 }
 
 //==============================================================================

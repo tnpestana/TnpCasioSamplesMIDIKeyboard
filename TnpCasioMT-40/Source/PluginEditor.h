@@ -20,8 +20,7 @@ class TnpCasioMt40AudioProcessorEditor  : public AudioProcessorEditor,
 										  public ComboBox::Listener
 {
 public:
-    TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&, AudioProcessorValueTreeState&,
-									  MidiKeyboardState&);
+    TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor&);
     ~TnpCasioMt40AudioProcessorEditor();
 
     //==============================================================================

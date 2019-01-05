@@ -12,13 +12,11 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p, 
-																	AudioProcessorValueTreeState& apvts, 
-																	MidiKeyboardState& mks)
+TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40AudioProcessor& p)
     : AudioProcessorEditor (&p),
 	processor (p), 
-	treeState (apvts), 
-	keyboard(mks, MidiKeyboardComponent::horizontalKeyboard)
+	treeState (p.getTreeState()), 
+	keyboard (p.getMidiState(), MidiKeyboardComponent::horizontalKeyboard)
 {
 	addAndMakeVisible(comboKeyboard);
 	addAndMakeVisible(comboTone);
