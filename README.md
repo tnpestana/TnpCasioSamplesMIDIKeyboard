@@ -1,6 +1,6 @@
 # Pesto's MIDI Casio MT-40
 
-Loaded recorded audio samples from an analog keyboard Casio MT-40 into a JUCE plug-in to be able to use it's preset sounds as a VST with MIDI compatibility. The audio samples were recorded by Henry and taken from [his blog](http://oldkeyboardsamples.tumblr.com).
+Loaded recorded audio samples from some analog Casio keyboards into a JUCE plug-in to be able to use it's preset sounds as a VST with MIDI compatibility. For now it gathers samples from models MT-40, RAPMAN, SA-10 and SK-1. 
 
 ## Building
 
