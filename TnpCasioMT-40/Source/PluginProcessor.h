@@ -63,13 +63,12 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    AudioProcessorValueTreeState treeState;
+    MidiKeyboardState midiState;
+    Synthesiser synth;
+    MidiMessageCollector midiCollector;
+    int localKeyboard;
 	int localTone;
-	int localKeyboard;
-	AudioProcessorValueTreeState treeState;
-	MidiKeyboardState midiState;
-
-	Synthesiser synth;
-	MidiMessageCollector midiCollector;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpCasioMt40AudioProcessor)

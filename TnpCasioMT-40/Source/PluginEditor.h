@@ -46,9 +46,10 @@ private:
 	ComboBox comboTone;
 
 	MidiKeyboardComponent keyboard;
-
-	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentTone;
-	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentKeyboard;
+    
+    
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentTone;
+	std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment> attachmentKeyboard;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpCasioMt40AudioProcessorEditor)
 

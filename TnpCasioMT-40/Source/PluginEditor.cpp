@@ -30,8 +30,8 @@ TnpCasioMt40AudioProcessorEditor::TnpCasioMt40AudioProcessorEditor (TnpCasioMt40
 	for (int i = 1; i < 25; i++)
 		casioMT40_tones.add((String)i);
 
-	attachmentKeyboard = new AudioProcessorValueTreeState::ComboBoxAttachment(treeState, "keyboard", comboKeyboard);
-	attachmentTone = new AudioProcessorValueTreeState::ComboBoxAttachment(treeState, "tone", comboTone);
+	attachmentKeyboard = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "keyboard", comboKeyboard);
+	attachmentTone = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "tone", comboTone);
 
 	if (comboKeyboard.getSelectedId() == 0)
 		comboKeyboard.setSelectedId(1);
