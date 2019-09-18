@@ -30,7 +30,7 @@ public:
 private:
 	// Inherited via Listener
 	virtual void comboBoxChanged(ComboBox * comboBoxThatHasChanged) override;
-	void TnpCasioMt40AudioProcessorEditor::keyboardChanged();
+    void keyboardChanged();
 
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
