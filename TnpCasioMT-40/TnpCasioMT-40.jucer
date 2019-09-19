@@ -3,6 +3,9 @@
 <JUCERPROJECT id="uE9yKS" name="TnpCasioMT-40" projectType="audioplug" jucerVersion="5.4.4"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="uCgNwV" name="TnpCasioMT-40">
+    <GROUP id="{A23CE162-B962-86A1-4885-E8045BDED7B0}" name="Data">
+      <FILE id="u3rlGg" name="SampleData.h" compile="0" resource="0" file="Source/SampleData.h"/>
+    </GROUP>
     <GROUP id="{D17291E3-70CC-CCBC-11C6-9ED097C4B809}" name="Source">
       <FILE id="ERrDhU" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
