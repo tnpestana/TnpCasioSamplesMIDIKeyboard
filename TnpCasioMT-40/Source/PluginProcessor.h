@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "SampleData.h"
 
 //==============================================================================
 /**
@@ -69,6 +70,7 @@ private:
     MidiMessageCollector midiCollector;
     int localKeyboard;
 	int localTone;
+    SampleData sampleData;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TnpCasioMt40AudioProcessor)
