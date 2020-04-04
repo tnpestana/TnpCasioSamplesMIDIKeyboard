@@ -89,8 +89,8 @@ void TnpCasioMt40AudioProcessorEditor::resized()
 	Rectangle<int> area(getLocalBounds());
 
 	Rectangle<int> combosArea(area.removeFromTop(area.getHeight() / 2));
-	comboKeyboard.setBounds(combosArea.removeFromLeft(area.getWidth() / 2).reduced(40));
-	comboTone.setBounds(combosArea.reduced(40));
+	comboKeyboard.setBounds(combosArea.removeFromLeft(area.getWidth() / 2).reduced(35));
+	comboTone.setBounds(combosArea.reduced(35));
 
 	keyboard.setBounds(area.reduced(5));
 }

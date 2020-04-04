@@ -1,2 +1,3 @@
-TnpCasioMT-40/Builds/
-TnpCasioMT-40/JuceLibraryCode/
+**/Builds/
+**/JuceLibraryCode/
+**/.DS_Store
